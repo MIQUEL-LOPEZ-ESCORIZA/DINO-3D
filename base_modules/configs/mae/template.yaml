@@ -1,0 +1,26 @@
+MODEL:
+  BACKBONE: vit
+  PRETRAINED: <path-to-pretrained-model>
+  DIR: <path-to-model-save-dir>
+  SAVE_NAME: <model-save-name>
+  ROI: [96, 96, 96]
+DATA:
+  BASE_PATH: <path-to-data-base-dir>
+  TRAIN_CSV_PATH: <path-to-train-csv>
+  VAL_CSV_PATH: <path-to-val-csv>
+  TEST_CSV_PATH: <path-to-test-csv>
+  NUM_WORKERS: 4
+TRAIN:
+  MAX_EPOCHS: 100
+  VAL_EVERY: 10
+  BASE_LR: 1.0e-4
+  MIN_LR: 1.0e-7
+  LOSS: L1
+  TEMPERATURE: 0.5
+WANDB:
+  WANDB_ENABLE: False
+  PROJECT: <wandb-project-name>
+LOG:
+  FILENAME: <log-file-name>
+SEED: 42
+OUTPUT: <path-to-output-config-json-file>

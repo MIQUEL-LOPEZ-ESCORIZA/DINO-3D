@@ -1,0 +1,34 @@
+MODEL:
+  NAME: vae
+  PRETRAINED: None
+  DIR: /gpfs/data/denizlab/Users/hh2740/git_backups/MedSSL-3D/model_saved
+  SAVE_NAME: vae_test_lr1.6e-3.pt
+  ROI: [96, 96, 96]
+DATA:
+  BASE_PATH: /gpfs/data/denizlab/Users/hh2740/git_backups/MedSSL-3D/datasets
+  TRAIN_CSV_PATH: /gpfs/data/denizlab/Users/hh2740/git_backups/MedSSL-3D/datasets/train.csv
+  VAL_CSV_PATH: /gpfs/data/denizlab/Users/hh2740/git_backups/MedSSL-3D/datasets/val.csv
+  TEST_CSV_PATH: /gpfs/data/denizlab/Users/hh2740/git_backups/MedSSL-3D/datasets/test.csv
+  NUM_WORKERS: 4
+  CACHE_NUM: -1
+  CACHE_RATE: 1.0
+TRAIN:
+  MAX_EPOCHS: 1000
+  VAL_EVERY: 10
+  BASE_LR: 1e-2
+  MIN_LR: 1e-5
+  LOSS: L1
+  PER_WARMUP: 0.01
+  TEMPERATURE: 0.5
+  BETA1: 0.9
+  BETA2: 0.95
+  WEIGHT_DECAY: 5e-7
+VAE:
+  LATENT_DIM: 128
+WANDB:
+  WANDB_ENABLE: False
+  PROJECT: vae_test_lr1.6e-3
+LOG:
+  FILENAME: vae_test_lr1.6e-3
+SEED: 42
+OUTPUT: /gpfs/data/denizlab/Users/hh2740/git_backups/MedSSL-3D/configs/vae

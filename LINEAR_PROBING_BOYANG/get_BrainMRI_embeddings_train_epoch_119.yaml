@@ -1,0 +1,67 @@
+DATA:
+  BASE_PATH: null
+  BATCH_SIZE: 64
+  CACHE_DIR: null
+  CACHE_NUM: -1
+  CACHE_RATE: 1.0
+  CLASS_INDEX: -1
+  IMG_PATH_COL: img_path_T1_mni152
+  NUM_WORKERS: 4
+  PIN_MEMORY: false
+  SEGMENTATION_SUFFIX: null
+  TEST_CSV_PATH: /gpfs/scratch/by2026/BrainATLAS/mae/data_csv/mae_UKB_ADNI_HCP_CamCAN_IXI_train.csv
+  TRAIN_CSV_PATH: /gpfs/scratch/by2026/BrainATLAS/mae/data_csv/pretrain_mae_adni_downstream_progression.csv
+  TRANSFORM: centercrop
+  VAL_CSV_PATH: /gpfs/scratch/by2026/BrainATLAS/mae/data_csv/pretrain_mae_adni_downstream_progression.csv
+LOG:
+  FILENAME: mae_BrainMRI_patch_mni152_ukb_epoch_119_all_gather_train_embeddings
+MODEL:
+  DIR: PRETRAINED_MODEL
+  NAME: vit
+  PRETRAINED: /gpfs/scratch/by2026/BrainATLAS/mae/PRETRAINED_MODEL/mae_BrainMRI_patch_mni152_ukb_epoch_119.pt
+  ROI:
+  - 128
+  - 128
+  - 128
+  SAVE_NAME: mae_BrainMRI_patch_mni152_ukb_epoch_119_all_gather_train_embeddings.pt
+OUTPUT: OUTPUT
+SEED: 42
+TRAIN:
+  BASE_LR: 0.00015
+  BETA1: 0.9
+  BETA2: 0.999
+  GRAD_CLIP: 3.0
+  LOCK: true
+  LOCK_LAST_ATTENTION_MODULE: true
+  LOSS: L1
+  MAX_EPOCHS: 0
+  MIN_LR: 1.5e-08
+  OPTIMIZER: AdamW
+  PER_WARMUP: 0.01
+  SCHEDULER: cosine
+  TEMPERATURE: 0.5
+  VAL_EVERY: 2
+  WEIGHT_DECAY: 0.005
+VIT:
+  CLASSIFICATION: false
+  DROPOUT_RATE: 0.0
+  HIDDEN_SIZE: 768
+  INPUT_SIZE: 128
+  IN_CHANS: 1
+  MLP_DIM: 3072
+  NUM_CLASSES: 2
+  NUM_HEADS: 12
+  NUM_LAYERS: 12
+  NUM_PATCHES: 1
+  PATCHES_OVERLAP: 0.2
+  PATCH_EMBED: conv
+  PATCH_SIZE: 16
+  POOLING: layer_norm
+  POS_EMBED: sincos
+  SMOOTH_MCI_LABEL: true
+  SPATIAL_DIMS: 3
+  USE_BIAS: true
+  USE_FLASH_ATTN: false
+WANDB:
+  PROJECT: mae_BrainMRI_patch_mni152_ukb_epoch_119_all_gather_train_embeddings
+  WANDB_ENABLE: true

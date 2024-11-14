@@ -1,0 +1,56 @@
+MODEL:
+  NAME: vit
+  PRETRAINED: None
+  DIR: /gpfs/data/denizlab/Users/hh2740/git_backups/MedSSL-3D/model_saved
+  SAVE_NAME: mae_10%_lr1.5e-4_mask0.75_sincos_pflash_ep1600_adamw_clip3.0_gpu4_s42.pt
+  ROI: [128, 128, 128]
+DATA:
+  BASE_PATH: /gpfs/data/denizlab/Users/hh2740/git_backups/MedSSL-3D/datasets
+  TRAIN_CSV_PATH: /gpfs/data/denizlab/Users/hh2740/git_backups/MedSSL-3D/datasets/train_denoise_10%.csv
+  VAL_CSV_PATH: /gpfs/data/denizlab/Users/hh2740/git_backups/MedSSL-3D/datasets/val_denoise.csv
+  TEST_CSV_PATH: /gpfs/data/denizlab/Users/hh2740/git_backups/MedSSL-3D/datasets/test_denoise.csv
+  NUM_WORKERS: 4
+  CACHE_NUM: -1
+  CACHE_RATE: 1.
+  CACHE_DIR: /gpfs/scratch/huangh13/cache_dir_mae
+TRAIN:
+  MAX_EPOCHS: 1600
+  VAL_EVERY: 50
+  BASE_LR: 1.5e-4
+  MIN_LR: 1.5e-8
+  LOSS: L1
+  PER_WARMUP: 0.025
+  TEMPERATURE: 0.5
+  BETA1: 0.9
+  BETA2: 0.95
+  WEIGHT_DECAY: 5e-6
+  GRAD_CLIP: 0.0
+  OPTIMIZER: AdamW
+  SCHEDULER: cosine
+MAE:
+  INPUT_SIZE: 128
+  PATCH_SIZE: 16
+  MASK_RATIO: 0.75
+  IN_CHANS: 1
+  DROPOUT_RATE: 0.
+  PATCH_EMBED: 'conv'
+  POS_EMBED: 'sincos'
+  SPATIAL_DIMS: 3
+  NORM_PIX_LOSS: False
+  ENCODER_EMBED_DIM: 768
+  ENCODER_DEPTH: 12
+  ENCODER_MLP_DIM: 3072
+  ENCODER_NUM_HEADS: 12
+  DECODER_EMBED_DIM: 768
+  DECODER_DEPTH: 8
+  DECODER_MLP_DIM: 3072
+  DECODER_NUM_HEADS: 16
+  USE_BIAS: True
+  USE_FLASH_ATTN: True
+WANDB:
+  WANDB_ENABLE: False
+  PROJECT: mae_10%_lr1.5e-4_mask0.75_sincos_pflash_ep1600_adamw_clip3.0_gpu4_s42
+LOG:
+  FILENAME: mae_10%_lr1.5e-4_mask0.75_sincos_pflash_ep1600_adamw_clip3.0_gpu4_s42
+SEED: 42
+OUTPUT: /gpfs/data/denizlab/Users/hh2740/git_backups/MedSSL-3D/configs/mae

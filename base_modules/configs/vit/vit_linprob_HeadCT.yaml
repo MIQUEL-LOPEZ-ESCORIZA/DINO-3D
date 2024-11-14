@@ -1,0 +1,59 @@
+MODEL:
+  NAME: vit
+  PRETRAINED: None
+  DIR: /gpfs/data/denizlab/Users/hh2740/git_backups/MedSSL-3D/model_saved
+  SAVE_NAME: vit_linprob.pt
+  ROI: [128, 128, 128]
+DATA:
+  BASE_PATH: /gpfs/data/denizlab/Users/hh2740/git_backups/MedSSL-3D/datasets
+  # TRAIN_CSV_PATH: /gpfs/data/denizlab/Users/hh2740/git_backups/MedSSL-3D/datasets/train_denoise.csv
+  # VAL_CSV_PATH: /gpfs/data/denizlab/Users/hh2740/git_backups/MedSSL-3D/datasets/val_denoise.csv
+  # TEST_CSV_PATH: /gpfs/data/denizlab/Users/hh2740/git_backups/MedSSL-3D/datasets/train_denoise.csv
+  TRAIN_CSV_PATH: /gpfs/data/denizlab/Users/hh2740/git_backups/MedSSL-3D/datasets/train_denoise_class_default_1000shots.csv
+  VAL_CSV_PATH: /gpfs/data/denizlab/Users/hh2740/git_backups/MedSSL-3D/datasets/val_denoise_class_default.csv
+  TEST_CSV_PATH: /gpfs/data/denizlab/Users/hh2740/git_backups/MedSSL-3D/datasets/test_denoise_class_default.csv
+  CACHE_DIR: /gpfs/data/razavianlab/data/headCT/cache_dir_embed
+  NUM_WORKERS: 4
+  CACHE_NUM: -1
+  CACHE_RATE: 1.
+  CLASS_INDEX: 1
+TRAIN:
+  MAX_EPOCHS: 100
+  VAL_EVERY: 10
+  BASE_LR: 1.5e-4
+  MIN_LR: 1.5e-8
+  LOSS: L1
+  PER_WARMUP: 0.01
+  TEMPERATURE: 0.5
+  BETA1: 0.9
+  BETA2: 0.999
+  WEIGHT_DECAY: 0.01
+  GRAD_CLIP: 0.0
+  OPTIMIZER: AdamW
+  SCHEDULER: cosine
+VIT:
+  INPUT_SIZE: 128
+  PATCH_SIZE: 8
+  IN_CHANS: 1
+  DROPOUT_RATE: 0.
+  PATCH_EMBED: 'conv'
+  POS_EMBED: 'sincos'
+  SPATIAL_DIMS: 3
+  HIDDEN_SIZE: 768
+  NUM_LAYERS: 12
+  MLP_DIM: 3072
+  NUM_HEADS: 12
+  NUM_PATCHES: 8
+  PATCHES_OVERLAP: 0.2
+  POOLING: 'cls'
+  NUM_CLASSES: 2
+  CLASSIFICATION: False
+  USE_BIAS: True
+  USE_FLASH_ATTN: True
+WANDB:
+  WANDB_ENABLE: False
+  PROJECT: vit_linprob
+LOG:
+  FILENAME: vit_linprob
+SEED: 42
+OUTPUT: /gpfs/data/denizlab/Users/hh2740/git_backups/MedSSL-3D/configs/vit
