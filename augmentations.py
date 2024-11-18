@@ -252,3 +252,63 @@ def get_loading_transform_f16():
 #             # transforms.RandGaussianSmooth(sigma_x=(0.05,0.1), sigma_y=(0.05,0.1), sigma_z=(0.05,0.1), prob=0.2), 
 #             normalize
 #         ])
+
+class MY_AUGMENTATION(object):
+    def __init__(self, final_size, global_crops_size, local_crops_size, local_crops_number):
+        # Define transforms for flipping and random affine transformations
+        flip_and_noise = transforms.Compose([transforms.RandFlip(prob=0.2, spatial_axis=0), 
+                                    transforms.RandFlip(prob=0.2, spatial_axis=1), 
+                                    transforms.RandFlip(prob=0.2, spatial_axis=2), 
+                                    transforms.RandShiftIntensity(offsets=0.2, prob=0.5)
+                                    ])
+
+        # Normalization transform - adjust mean and std as per your dataset
+        normalize = transforms.Compose([transforms.ToTensor(), 
+                                         transforms.NormalizeIntensity()])
+        def threshold(x):
+            # threshold at 1
+            return x > 100
+
+        
+
+
+
+        # Global crop transforms
+        self.global_transfo1 = transforms.Compose([
+            transforms.CastToType(dtype=np.float32),
+            transforms.CropForeground(select_fn=threshold, margin=0), #(250,250,250)
+            transforms.RandSpatialCrop(global_crops_size, random_center=True, random_size=False),
+            transforms.Resize(spatial_size=final_size),
+            flip_and_noise, 
+            transforms.RandGaussianSmooth(sigma_x=(0.5,1.0), sigma_y=(0.5,1.0), sigma_z=(0.5,1.0), prob=0.2), 
+            normalize, 
+        ])
+        self.global_transfo2 = transforms.Compose([
+            transforms.CastToType(dtype=np.float32),
+            transforms.CropForeground(select_fn=threshold, margin=0),
+            transforms.RandSpatialCrop(global_crops_size, random_center=True, random_size=False),
+            transforms.Resize(spatial_size=final_size),
+            flip_and_noise, 
+            transforms.RandAdjustContrast(gamma=(0.2,1.),prob=0.2),
+            normalize,
+        ])
+
+        # Local crop transform
+        self.local_crops_number = local_crops_number
+        self.local_transfo = transforms.Compose([
+            transforms.CastToType(dtype=np.float32),
+            transforms.CropForeground(select_fn=threshold, margin=0),
+            transforms.RandSpatialCrop(local_crops_size, random_center=True, random_size=False),
+            transforms.Resize(spatial_size=final_size),
+            flip_and_noise,
+            transforms.RandGaussianSmooth(sigma_x=(0.05,0.1), sigma_y=(0.05,0.1), sigma_z=(0.05,0.1), prob=0.2), 
+            normalize
+        ])
+
+    def __call__(self, image):
+        crops = []
+        crops.append(self.global_transfo1(image))
+        crops.append(self.global_transfo2(image))
+        for _ in range(self.local_crops_number):
+            crops.append(self.local_transfo(image))
+        return crops

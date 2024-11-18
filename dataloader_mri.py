@@ -11,7 +11,7 @@ import numpy as np
 
 class HeadDataset(Dataset):
     def __init__(self, csv_file, data_augmentation, cache_dir="/scratch/ml9715/DINO-3D/temp_cache_large_3_channel/"):
-        self.data = pd.read_csv(csv_file)
+        self.data = pd.read_csv(csv_file).head(10000)
         # self.load = get_loading_transform_f16()
         self.load = get_loading_transform_f16()
 

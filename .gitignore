@@ -171,6 +171,7 @@ cython_debug/
 **/split_dataset.ipynb
 **/*_test.ipynb
 **/*.pt
+**/*.pth
 **/*.mp4
 **/*.json
 **/*.csv
@@ -186,6 +187,7 @@ cython_debug/
 /embedding
 /debug_*
 
+/visualization.ipynb
 fitler_files.py
 
 # PyCharm

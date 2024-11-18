@@ -174,16 +174,16 @@ def train_dino(args):
     #     global_crops_size=(112, 112, 112),
     #     local_crops_number=args.local_crops_number)
 
-    # data_augmentation_3d = DataAugmentationDINO3D(
-    #     final_size=(128, 128, 128),
-    #     local_crops_size=(96, 96, 96),
-    #     global_crops_size=(192, 192, 192),
-    #     local_crops_number=args.local_crops_number)
-    data_augmentation_3d = MY_AUGMENTATION(
+    data_augmentation_3d = DataAugmentationDINO3D(
         final_size=(128, 128, 128),
-        local_crops_size=(64,64,64),
+        local_crops_size=(64, 64, 64),
         global_crops_size=(128, 128, 128),
         local_crops_number=args.local_crops_number)
+    # data_augmentation_3d = MY_AUGMENTATION(
+    #     final_size=(128, 128, 128),
+    #     local_crops_size=(64,64,64),
+    #     global_crops_size=(128, 128, 128),
+    #     local_crops_number=args.local_crops_number)
     
     # dataset = HeadDataset(csv_path, data_augmentation_3d)
     dataset = HeadDataset(csv_path, data_augmentation_3d,
@@ -354,7 +354,7 @@ def train_dino(args):
                     "pos_embed": "sincos",
                     "use_flash_attn": True
                 }
-            OUTPUT_DIR= '/scratch/ml9715/DINO-3D/LINEAR_PROBING/DATAFRAMES/RUN_3'
+            OUTPUT_DIR= '/scratch/ml9715/DINO-3D/LINEAR_PROBING/DATAFRAMES/RUN_4'
             CACHE_DIRECTORY = '/scratch/ml9715/DINO-3D/LINEAR_PROBING/cache_dataset'
             TRAIN_CSV_PATH = '/scratch/by2026/BrainATLAS/mae/mae/data_csv/mae_UKB_ADNI_HCP_CamCAN_IXI_train_with_stat.csv'
             compute_features(TRAIN_CSV_PATH, CHECKPOINT, VIT_PARAMS, epoch, OUTPUT_DIR, CACHE_DIRECTORY, args.batch_size_per_gpu, ['age', 'gender'])
